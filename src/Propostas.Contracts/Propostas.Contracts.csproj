@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+
+    <RootNamespace>ParanaBanco.Credito.Contracts</RootNamespace>
+  </PropertyGroup>
+
+</Project>
