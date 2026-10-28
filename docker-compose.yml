@@ -1,0 +1,19 @@
+name: parana-propostas
+
+services:
+  propostas-api:
+    build: .
+    container_name: parana-propostas-api
+    environment:
+      ConnectionStrings__SqlServer: Server=parana-sqlserver,1433;Database=propostas_db;User Id=sa;Password=${MSSQL_SA_PASSWORD:-Parana@2026};TrustServerCertificate=True
+      RabbitMq__Url: amqp://guest:guest@parana-rabbitmq:5672/
+      Cors__Origens__0: http://localhost:5173
+      Cors__Origens__1: http://localhost:5174
+    ports:
+      - "5102:8080"
+    restart: on-failure
+    networks: [parana-credito]
+
+networks:
+  parana-credito:
+    external: true
