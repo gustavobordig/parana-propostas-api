@@ -36,21 +36,9 @@ O fluxo é dividido em três microsserviços independentes, um por repositório,
 | **Cartões** | Emite os cartões da proposta aprovada | [parana-cartoes-api](https://github.com/gustavobordig/parana-cartoes-api) |
 | Front | Cadastro e acompanhamento do fluxo em tempo real | [parana-credito-web](https://github.com/gustavobordig/parana-credito-web) |
 
-```mermaid
-flowchart LR
-    U[Front / cliente HTTP] -->|POST /api/v1/clientes| C[Clientes API]
-    C -->|salva cliente + evento<br/>na mesma transação| DBC[(SQL Server<br/>clientes_db)]
-    C -->|ClienteCadastrado<br/>via outbox| EX1{{exchange<br/>cliente-cadastrado}}
-    EX1 --> Q1[fila<br/>proposta-cliente-cadastrado]
-    Q1 --> P[Propostas API]
-    Q1 -. falha após retry .-> DLQ1[proposta-cliente-cadastrado_error]
-    P --> DBP[(SQL Server<br/>propostas_db)]
-    P -->|PropostaGerada| EX2{{exchange<br/>proposta-gerada}}
-    EX2 --> Q2[fila<br/>cartao-proposta-gerada]
-    Q2 --> K[Cartões API]
-    Q2 -. falha após retry .-> DLQ2[cartao-proposta-gerada_error]
-    K --> DBK[(MongoDB<br/>cartoes_db)]
-```
+![Fluxograma da solução](docs/fluxograma.svg)
+
+Versão editável: [`docs/fluxograma.drawio`](docs/fluxograma.drawio), que abre no [draw.io](https://app.diagrams.net).
 
 ## Regra de score
 
