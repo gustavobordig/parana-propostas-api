@@ -8,6 +8,23 @@ Microsserviço de **proposta de crédito** do fluxo de concessão de crédito. C
 | **Front da solução** | https://parana-credito-web.vercel.app |
 | **Stack** | .NET 10 · ASP.NET Core · EF Core + SQL Server · MassTransit 8 + RabbitMQ · xUnit |
 
+## Sumário
+
+- [A solução completa](#a-solução-completa)
+- [Regra de score](#regra-de-score)
+- [Fluxo de mensagens](#fluxo-de-mensagens)
+  - [Evento consumido: ClienteCadastrado](#evento-consumido-clientecadastrado)
+  - [Evento publicado: PropostaGerada](#evento-publicado-propostagerada)
+- [Resiliência](#resiliência)
+- [Endpoints](#endpoints)
+- [Arquitetura](#arquitetura)
+- [Decisões técnicas](#decisões-técnicas)
+- [Como executar localmente](#como-executar-localmente)
+  - [Variáveis de ambiente](#variáveis-de-ambiente)
+- [Testes](#testes)
+- [Deploy](#deploy)
+- [Próximos passos](#próximos-passos)
+
 ## A solução completa
 
 O fluxo é dividido em três microsserviços independentes, um por repositório, que se comunicam apenas por eventos:
